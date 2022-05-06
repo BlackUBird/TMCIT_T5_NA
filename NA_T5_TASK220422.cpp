@@ -2,99 +2,147 @@
 #include <stdlib.h>
 #include "Matrix.h"
 
-int main()
+int main(void)
 {
-	int rows,cols;	//s”,—ñ”
-	//æ“¾
-	printf("s”‚ğ“ü—Í:");	scanf_s("%d",&rows);
-	printf("—ñ”‚ğ“ü—Í:");	scanf_s("%d",&cols);
+	int rows,cols;	//è¡Œæ•°,åˆ—æ•°
+	//å–å¾—
+	printf("è¡Œæ•°ã‚’å…¥åŠ›:");	scanf_s("%d",&rows);
+	printf("åˆ—æ•°ã‚’å…¥åŠ›:");	scanf_s("%d",&cols);
 
-	//s—ñ‚ğì¬
+	//è¡Œåˆ—ã‚’ä½œæˆ
 	TS_Matrix M_A;
 	Matrix_Initialize( &M_A , rows , cols );
 	TS_Matrix M_B;
 	Matrix_Initialize( &M_B , rows , cols );
 
-	//•\¦
+	//è¡¨ç¤º
 	puts("Matrix:A");
-	Matrix_Draw_Row( &M_A );	//s”
-	Matrix_Draw_Column( &M_A );	//—ñ”
-	Matrix_Draw_Element_All( &M_A );	//‘S‚Ä‚Ì—v‘f
+	Matrix_Draw_Row( &M_A );	//è¡Œæ•°
+	Matrix_Draw_Column( &M_A );	//åˆ—æ•°
+	Matrix_Draw_Element_All( &M_A );	//å…¨ã¦ã®è¦ç´ 
+	puts("");
 	puts("Matrix:B");
-	Matrix_Draw_Row( &M_B );	//s”
-	Matrix_Draw_Column( &M_B );	//—ñ”
-	Matrix_Draw_Element_All( &M_B );	//‘S‚Ä‚Ì—v‘f
+	Matrix_Draw_Row( &M_B );	//è¡Œæ•°
+	Matrix_Draw_Column( &M_B );	//åˆ—æ•°
+	Matrix_Draw_Element_All( &M_B );	//å…¨ã¦ã®è¦ç´ 
+	puts("");
 
-	//ƒeƒXƒg—ps—ñ
-	double test_m[3][3] = 
-	{
-		{ 1 , 2 , 3 },
-		{ 4 , 5 , 6 },
-		{ 7 , 8 , 9 },
-	};
-
-	//İ’è
-	//ƒ‹[ƒv—p
+	//è¨­å®š
+	//ãƒ«ãƒ¼ãƒ—ç”¨
 	int i,j;
+	//å…¥åŠ›ã‚’ä¿ƒã™
+	printf("è¡Œåˆ—Aã®è¦ç´ ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„\n");
+	//å…¥åŠ›ã‚’å—ã‘ã‚‹
+	double element;
 	for( i = 0 ; i < 3 ; i++ )
-	{	//s•ûŒü‚Öi‚Şƒ‹[ƒv
+	{	//è¡Œæ–¹å‘ã¸é€²ã‚€ãƒ«ãƒ¼ãƒ—
 		for( j = 0 ; j < 3 ; j++ )
-		{	//—ñ•ûŒü‚Öi‚Şƒ‹[ƒv
-			Matrix_Set_Element( &M_A , i , j , test_m[i][j] );
-			Matrix_Set_Element( &M_B , i , j , test_m[j][i] );
+		{	//åˆ—æ–¹å‘ã¸é€²ã‚€ãƒ«ãƒ¼ãƒ—
+			//å…¥åŠ›
+			printf("(%d,%d):",i,j);	scanf_s("%lf",&element);
+			//è¨­å®š
+			Matrix_Set_Element( &M_A , i , j , element );
+			Matrix_Set_Element( &M_B , i , j , 20.0 - element );
 		}
 	}
-	//Ä“x•\¦
+	//å†åº¦è¡¨ç¤º
 	puts("Matrix:A");
-	Matrix_Draw_Row( &M_A );	//s”
-	Matrix_Draw_Column( &M_A );	//—ñ”
-	Matrix_Draw_Element_All( &M_A );	//‘S‚Ä‚Ì—v‘f
+	Matrix_Draw_Row( &M_A );	//è¡Œæ•°
+	Matrix_Draw_Column( &M_A );	//åˆ—æ•°
+	Matrix_Draw_Element_All( &M_A );	//å…¨ã¦ã®è¦ç´ 
+	puts("");
 	puts("Matrix:B");
-	Matrix_Draw_Row( &M_B );	//s”
-	Matrix_Draw_Column( &M_B );	//—ñ”
-	Matrix_Draw_Element_All( &M_B );	//‘S‚Ä‚Ì—v‘f
+	Matrix_Draw_Row( &M_B );	//è¡Œæ•°
+	Matrix_Draw_Column( &M_B );	//åˆ—æ•°
+	Matrix_Draw_Element_All( &M_B );	//å…¨ã¦ã®è¦ç´ 
+	puts("");
 
-	//Œ‹‰ÊŠi”[—p
+	//çµæœæ ¼ç´ç”¨
 	TS_Matrix M_Result;
 	Matrix_Initialize( &M_Result , rows , cols );
 
-	//‰ÁZ
+	//åŠ ç®—
 	M_Result = Matrix_Sum( M_A , M_B );
-	//•\¦
+	//è¡¨ç¤º
 	puts("Matrix:Result(SUM)");
-	Matrix_Draw_Row( &M_Result );	//s”
-	Matrix_Draw_Column( &M_Result );	//—ñ”
-	Matrix_Draw_Element_All( &M_Result );	//‘S‚Ä‚Ì—v‘f
+	Matrix_Draw_Row( &M_Result );	//è¡Œæ•°
+	Matrix_Draw_Column( &M_Result );	//åˆ—æ•°
+	Matrix_Draw_Element_All( &M_Result );	//å…¨ã¦ã®è¦ç´ 
+	puts("");
 
-	//Œ¸Z
+	//æ¸›ç®—
 	M_Result = Matrix_Sub( M_A , M_B );
-	//•\¦
+	//è¡¨ç¤º
 	puts("Matrix:Result(SUB)");
-	Matrix_Draw_Row( &M_Result );	//s”
-	Matrix_Draw_Column( &M_Result );	//—ñ”
-	Matrix_Draw_Element_All( &M_Result );	//‘S‚Ä‚Ì—v‘f
+	Matrix_Draw_Row( &M_Result );	//è¡Œæ•°
+	Matrix_Draw_Column( &M_Result );	//åˆ—æ•°
+	Matrix_Draw_Element_All( &M_Result );	//å…¨ã¦ã®è¦ç´ 
+	puts("");
 
-	//æZ
+	//ä¹—ç®—
 	M_Result = Matrix_Mul( M_A , M_B );
-	//•\¦
+	//è¡¨ç¤º
 	puts("Matrix:Result(MUL)");
-	Matrix_Draw_Row( &M_Result );	//s”
-	Matrix_Draw_Column( &M_Result );	//—ñ”
-	Matrix_Draw_Element_All( &M_Result );	//‘S‚Ä‚Ì—v‘f
+	Matrix_Draw_Row( &M_Result );	//è¡Œæ•°
+	Matrix_Draw_Column( &M_Result );	//åˆ—æ•°
+	Matrix_Draw_Element_All( &M_Result );	//å…¨ã¦ã®è¦ç´ 
+	puts("");
 
-	//œZ
+	//é™¤ç®—
 	M_Result = Matrix_Div( M_A , M_B );
-	//•\¦
+	//è¡¨ç¤º
 	puts("Matrix:Result(DIV)");
-	Matrix_Draw_Row( &M_Result );	//s”
-	Matrix_Draw_Column( &M_Result );	//—ñ”
-	Matrix_Draw_Element_All( &M_Result );	//‘S‚Ä‚Ì—v‘f
+	Matrix_Draw_Row( &M_Result );	//è¡Œæ•°
+	Matrix_Draw_Column( &M_Result );	//åˆ—æ•°
+	Matrix_Draw_Element_All( &M_Result );	//å…¨ã¦ã®è¦ç´ 
+	puts("");
+
+	//LUåˆ†è§£
+	//ä¸‹ä¸‰è§’è¡Œåˆ—
+	TS_Matrix M_L;
+	Matrix_Initialize( &M_L , rows ,cols );
+	//ä¸Šä¸‰è§’è¡Œåˆ—
+	TS_Matrix M_U;
+	Matrix_Initialize( &M_U , rows ,cols );
+	//LUåˆ†è§£ã‚’è¡Œã„ã€å„ä¸‰è§’è¡Œåˆ—ã‚’å–å¾—
+	Matrix_LUDecomposition( M_A , &M_L ,&M_U );
+	puts("LUDecomposition(A=LU)");
+	//è¡¨ç¤º
+	puts("Matrix:Result(A)");
+	Matrix_Draw_Row( &M_A );	//è¡Œæ•°
+	Matrix_Draw_Column( &M_A );	//åˆ—æ•°
+	Matrix_Draw_Element_All( &M_A );	//å…¨ã¦ã®è¦ç´ 
+	puts("");
+	//è¡¨ç¤º
+	puts("Matrix:Result(L)");
+	Matrix_Draw_Row( &M_L );	//è¡Œæ•°
+	Matrix_Draw_Column( &M_L );	//åˆ—æ•°
+	Matrix_Draw_Element_All( &M_L );	//å…¨ã¦ã®è¦ç´ 
+	puts("");
+	//è¡¨ç¤º
+	puts("Matrix:Result(U)");
+	Matrix_Draw_Row( &M_U );	//è¡Œæ•°
+	Matrix_Draw_Column( &M_U );	//åˆ—æ•°
+	Matrix_Draw_Element_All( &M_U );	//å…¨ã¦ã®è¦ç´ 
+	puts("");
+
+	//LUåˆ†è§£ã—ãŸã‚‚ã®ã§ä¹—ç®—
+	M_Result = Matrix_Mul( M_L , M_U );
+	//è¡¨ç¤º
+	puts("Matrix:Result(L*U)");
+	Matrix_Draw_Row( &M_Result );	//è¡Œæ•°
+	Matrix_Draw_Column( &M_Result );	//åˆ—æ•°
+	Matrix_Draw_Element_All( &M_Result );	//å…¨ã¦ã®è¦ç´ 
+	puts("");
 
 	system("pause");
 
-	//I—¹
+	//çµ‚äº†
 	Matrix_Finalize( &M_A );
 	Matrix_Finalize( &M_B );
+	Matrix_Finalize( &M_Result );
+	Matrix_Finalize( &M_L );
+	Matrix_Finalize( &M_U );
 
 	return (0);
 }
