@@ -2,286 +2,286 @@
 #include <stdlib.h>
 #include "Matrix.h"
 
-//‰Šú‰»
+//åˆæœŸåŒ–
 void Matrix_Initialize(TS_Matrix* Matrix,int StartRow,int StartColumn)
 {
-	//ƒ‹[ƒv—p
+	//ãƒ«ãƒ¼ãƒ—ç”¨
 	int i;
 
-	//s”A—ñ”‚ğİ’è
+	//è¡Œæ•°ã€åˆ—æ•°ã‚’è¨­å®š
 	Matrix->Row = StartRow;
 	Matrix->Column = StartColumn;
 
-	//”z—ñŠ„‚è“–‚Ä
-	//s•ûŒü
+	//é…åˆ—å‰²ã‚Šå½“ã¦
+	//è¡Œæ–¹å‘
 	Matrix->Element = (double**)calloc(StartRow,sizeof(double*));
-	//—ñ•ûŒü
+	//åˆ—æ–¹å‘
 	for( i = 0 ; i < StartRow ; i++ )
 	{
 		Matrix->Element[i] = (double*)calloc(StartColumn,sizeof(double));
 	}
 }
 
-//•`‰æ
-//s”
+//æç”»
+//è¡Œæ•°
 void Matrix_Draw_Row(TS_Matrix* Matrix)
 {
 	printf("Number of row:%d\n",Matrix->Row);
 }
-//—ñ”
+//åˆ—æ•°
 void Matrix_Draw_Column(TS_Matrix* Matrix)
 {
 	printf("Number of column:%d\n",Matrix->Column);
 }
-//(i,j)¬•ª
+//(i,j)æˆåˆ†
 void Matrix_Draw_Element(TS_Matrix* Matrix,int i,int j)
 {
 	printf("(%d,%d)element:%f\n",i,j,Matrix->Element[i][j]);
 }
-//—v‘f‘S•”
+//è¦ç´ å…¨éƒ¨
 void Matrix_Draw_Element_All(TS_Matrix* Matrix)
 {
-	int i,j;	//ƒ‹[ƒv—p
+	int i,j;	//ãƒ«ãƒ¼ãƒ—ç”¨
 	for( i = 0 ; i < Matrix->Row ; i++ )
-	{	//s•ûŒü‚Öi‚ß‚éƒ‹[ƒv
+	{	//è¡Œæ–¹å‘ã¸é€²ã‚ã‚‹ãƒ«ãƒ¼ãƒ—
 		for( j = 0 ; j < Matrix->Column ; j++ )
-		{	//—ñ•ûŒü‚Öi‚ß‚éƒ‹[ƒv
-			//•\¦
+		{	//åˆ—æ–¹å‘ã¸é€²ã‚ã‚‹ãƒ«ãƒ¼ãƒ—
+			//è¡¨ç¤º
 			printf("%8.4f ",Matrix->Element[i][j]);
 		}
-		//Ÿ‚Ìs‚És‚­‘O‚É‰üs
+		//æ¬¡ã®è¡Œã«è¡Œãå‰ã«æ”¹è¡Œ
 		printf("\n");
 	}
 }
 
-//æ“¾—p
-//s”
+//å–å¾—ç”¨
+//è¡Œæ•°
 int Matrix_Get_Row(TS_Matrix* Matrix)
 {
 	return (Matrix->Row);
 }
-//—ñ”
+//åˆ—æ•°
 int Matrix_Get_Column(TS_Matrix* Matrix)
 {
 	return (Matrix->Column);
 }
-//(i,j)¬•ª
+//(i,j)æˆåˆ†
 double Matrix_Get_Element(TS_Matrix* Matrix,int i,int j)
 {
 	return (Matrix->Element[i][j]);
 }
 
-//İ’è—p
-//s”
+//è¨­å®šç”¨
+//è¡Œæ•°
 int Matrix_Set_Row(TS_Matrix* Matrix,int NewRow)
 {
 	Matrix->Row = NewRow;
 	return (Matrix->Row);
 }
-//—ñ”
+//åˆ—æ•°
 int Matrix_Set_Column(TS_Matrix* Matrix,int NewColumn)
 {
 	Matrix->Column = NewColumn;
 	return (Matrix->Column);
 }
-//(i,j)¬•ª
+//(i,j)æˆåˆ†
 double Matrix_Set_Element(TS_Matrix* Matrix,int i,int j,double NewElement)
 {
 	Matrix->Element[i][j] = NewElement;
 	return (Matrix->Element[i][j]);
 }
 
-//XV
+//æ›´æ–°
 int Matrix_Update(TS_Matrix* Matrix)
 {
 	return (0);
 }
-//s”‚ğXV
+//è¡Œæ•°ã‚’æ›´æ–°
 int Matrix_Update_Row(TS_Matrix* Matrix,int NewRow)
 {
-	//ƒ‹[ƒv—p
+	//ãƒ«ãƒ¼ãƒ—ç”¨
 	int i,j;
 
-	//XV‘O‚Ìs—ñ
+	//æ›´æ–°å‰ã®è¡Œåˆ—
 	TS_Matrix *OldMatrix;
 	OldMatrix = Matrix;
 
-	//ì‹Æ—p
+	//ä½œæ¥­ç”¨
 	double** tmp;
 
-	//ÄŠ„‚è“–‚Ä
+	//å†å‰²ã‚Šå½“ã¦
 	if( (tmp = (double**)realloc(Matrix->Element,NewRow)) == NULL )
-	{	//¸”s‚µ‚½‚ç
-		//‚»‚Ì|‚ğ“`‚¦‚Ä
+	{	//å¤±æ•—ã—ãŸã‚‰
+		//ãã®æ—¨ã‚’ä¼ãˆã¦
 		printf("\"Matrix_Update_Row\" is failed.\n");
 		
-		//‚à‚Æ‚É–ß‚µ‚Ä
+		//ã‚‚ã¨ã«æˆ»ã—ã¦
 		Matrix = OldMatrix;
 		
-		//I—¹
+		//çµ‚äº†
 		return (-1);
 	}
 	else
-	{	//¬Œ÷‚µ‚½‚ç
-		//‘ã“ü
+	{	//æˆåŠŸã—ãŸã‚‰
+		//ä»£å…¥
 		Matrix->Element = tmp;
 
-		//’Ç‰Á‚µ‚½•”•ª‚ğƒ[ƒƒNƒŠƒA
+		//è¿½åŠ ã—ãŸéƒ¨åˆ†ã‚’ã‚¼ãƒ­ã‚¯ãƒªã‚¢
 		for( i = OldMatrix->Row ; i < NewRow ; i++ )
-		{	//‘‚¦‚½•”•ª‚ği‚Şƒ‹[ƒv
+		{	//å¢—ãˆãŸéƒ¨åˆ†ã‚’é€²ã‚€ãƒ«ãƒ¼ãƒ—
 			for( j = 0 ; j < OldMatrix->Column ; j++ )
-			{	//—ñ•ûŒü‚Éi‚Şƒ‹[ƒv
+			{	//åˆ—æ–¹å‘ã«é€²ã‚€ãƒ«ãƒ¼ãƒ—
 				Matrix->Element[i][j] = 0.0;
 			}
 		}
 
-		//V‚µ‚¢s—ñ‚ÌƒAƒhƒŒƒX
+		//æ–°ã—ã„è¡Œåˆ—ã®ã‚¢ãƒ‰ãƒ¬ã‚¹
 		printf("%p\n",Matrix->Element);
 	}
 
-	//³íI—¹
+	//æ­£å¸¸çµ‚äº†
 	return (0);
 }
-//—ñ”‚ğXV
+//åˆ—æ•°ã‚’æ›´æ–°
 int Matrix_Update_Column(TS_Matrix* Matrix,int NewColumn)
 {
-	//ƒ‹[ƒv—p
+	//ãƒ«ãƒ¼ãƒ—ç”¨
 	int i,j;
 
-	//XV‘O‚Ìs—ñ
+	//æ›´æ–°å‰ã®è¡Œåˆ—
 	TS_Matrix *OldMatrix;
 	OldMatrix = Matrix;
 
-	//ì‹Æ—p
+	//ä½œæ¥­ç”¨
 	double* tmp;
 
-	//ÄŠ„‚è“–‚Ä
+	//å†å‰²ã‚Šå½“ã¦
 	for( i = 0 ; i < OldMatrix->Row ; i++ )
-	{	//s•ûŒü‚Éi‚Şƒ‹[ƒv
+	{	//è¡Œæ–¹å‘ã«é€²ã‚€ãƒ«ãƒ¼ãƒ—
 		if( ( tmp = (double*)realloc(Matrix->Element[i],NewColumn) ) == NULL )
-		{	//¸”s‚µ‚½‚ç
-			//‚»‚Ì|‚ğ“`‚¦‚Ä
+		{	//å¤±æ•—ã—ãŸã‚‰
+			//ãã®æ—¨ã‚’ä¼ãˆã¦
 			printf("\"Matrix_Update_Row\" is failed.\n");
 			
-			//‚à‚Æ‚É–ß‚µ‚Ä
+			//ã‚‚ã¨ã«æˆ»ã—ã¦
 			Matrix = OldMatrix;
 			
-			//I—¹
+			//çµ‚äº†
 			return (-1);
 		}
 		else
-		{	//¬Œ÷‚µ‚½‚ç
-			//‘ã“ü
+		{	//æˆåŠŸã—ãŸã‚‰
+			//ä»£å…¥
 			Matrix->Element[i] = tmp;
 
-			//’Ç‰Á‚µ‚½•”•ª‚ğƒ[ƒƒNƒŠƒA
+			//è¿½åŠ ã—ãŸéƒ¨åˆ†ã‚’ã‚¼ãƒ­ã‚¯ãƒªã‚¢
 			for( j = OldMatrix->Column ; j < NewColumn ; j++ )
-			{	//—ñ•ûŒü‚Éi‚Şƒ‹[ƒv
+			{	//åˆ—æ–¹å‘ã«é€²ã‚€ãƒ«ãƒ¼ãƒ—
 				Matrix->Element[i][j] = 0.0;
 			}
 
-			//V‚µ‚¢s—ñ‚ÌƒAƒhƒŒƒX
+			//æ–°ã—ã„è¡Œåˆ—ã®ã‚¢ãƒ‰ãƒ¬ã‚¹
 			printf("%p\n",Matrix->Element[i]);
 		}
 	}
 	
-	//³íI—¹
+	//æ­£å¸¸çµ‚äº†
 	return (0);
 }
 
-//‰‰Z
-//‰ÁZ
+//æ¼”ç®—
+//åŠ ç®—
 TS_Matrix Matrix_Sum(TS_Matrix MA,TS_Matrix MB)
 {
-	//ŒvZŒ‹‰Ê‚ğŠi”[
+	//è¨ˆç®—çµæœã‚’æ ¼ç´
 	TS_Matrix Result = { 0 , 0 , NULL };
 
-	//Œ^‚ªˆê’v‚µ‚Ä‚¢‚È‚¯‚ê‚ÎŒvZ•s‰Â‚È‚Ì‚Åƒkƒ‹‚ğ•Ô‚·
+	//å‹ãŒä¸€è‡´ã—ã¦ã„ãªã‘ã‚Œã°è¨ˆç®—ä¸å¯ãªã®ã§ãƒŒãƒ«ã‚’è¿”ã™
 	if( MA.Row != MB.Row || MA.Column != MB.Column )
 	{
 		return (Result);
 	}
 	else
-	{	//ˆê’v‚µ‚Ä‚¢‚ê‚Î
-		//Œ‹‰ÊŠi”[—p\‘¢‘Ì‚ğ‰Šú‰»
+	{	//ä¸€è‡´ã—ã¦ã„ã‚Œã°
+		//çµæœæ ¼ç´ç”¨æ§‹é€ ä½“ã‚’åˆæœŸåŒ–
 		Matrix_Initialize( &Result , MA.Row , MA.Column );
 	}
 
-	//ƒ‹[ƒv—p
+	//ãƒ«ãƒ¼ãƒ—ç”¨
 	int i,j;
 
-	//‰‰Z
+	//æ¼”ç®—
 	for( i = 0 ; i < Result.Row ; i++ )
-	{	//s•ûŒü‚Ìƒ‹[ƒv
+	{	//è¡Œæ–¹å‘ã®ãƒ«ãƒ¼ãƒ—
 		for( j = 0 ; j < Result.Column ; j++ )
-		{	//—ñ•ûŒü‚Ìƒ‹[ƒv
-			//‰ÁZ‚µ‚½‚à‚Ì‚ğŒ‹‰Ê—p•Ï”‚Ìƒƒ“ƒo‚Ö
+		{	//åˆ—æ–¹å‘ã®ãƒ«ãƒ¼ãƒ—
+			//åŠ ç®—ã—ãŸã‚‚ã®ã‚’çµæœç”¨å¤‰æ•°ã®ãƒ¡ãƒ³ãƒã¸
 			Result.Element[i][j] = MA.Element[i][j] + MB.Element[i][j];
 		}
 	}
 
-	//•Ô‹p
+	//è¿”å´
 	return (Result);
 }
-//Œ¸Z
+//æ¸›ç®—
 TS_Matrix Matrix_Sub(TS_Matrix MA,TS_Matrix MB)
 {
-	//ŒvZŒ‹‰Ê‚ğŠi”[
+	//è¨ˆç®—çµæœã‚’æ ¼ç´
 	TS_Matrix Result = { 0 , 0 , NULL };
 
-	//Œ^‚ªˆê’v‚µ‚Ä‚¢‚È‚¯‚ê‚ÎŒvZ•s‰Â‚È‚Ì‚Åƒkƒ‹‚ğ•Ô‚·
+	//å‹ãŒä¸€è‡´ã—ã¦ã„ãªã‘ã‚Œã°è¨ˆç®—ä¸å¯ãªã®ã§ãƒŒãƒ«ã‚’è¿”ã™
 	if( MA.Row != MB.Row || MA.Column != MB.Column )
 	{
 		return (Result);
 	}
 	else
-	{	//ˆê’v‚µ‚Ä‚¢‚ê‚Î
-		//Œ‹‰ÊŠi”[—p\‘¢‘Ì‚ğ‰Šú‰»
+	{	//ä¸€è‡´ã—ã¦ã„ã‚Œã°
+		//çµæœæ ¼ç´ç”¨æ§‹é€ ä½“ã‚’åˆæœŸåŒ–
 		Matrix_Initialize( &Result , MA.Row , MA.Column );
 	}
 
-	//ƒ‹[ƒv—p
+	//ãƒ«ãƒ¼ãƒ—ç”¨
 	int i,j;
 
-	//‰‰Z
+	//æ¼”ç®—
 	for( i = 0 ; i < Result.Row ; i++ )
-	{	//s•ûŒü‚Ìƒ‹[ƒv
+	{	//è¡Œæ–¹å‘ã®ãƒ«ãƒ¼ãƒ—
 		for( j = 0 ; j < Result.Column ; j++ )
-		{	//—ñ•ûŒü‚Ìƒ‹[ƒv
-			//‰ÁZ‚µ‚½‚à‚Ì‚ğŒ‹‰Ê—p•Ï”‚Ìƒƒ“ƒo‚Ö
+		{	//åˆ—æ–¹å‘ã®ãƒ«ãƒ¼ãƒ—
+			//åŠ ç®—ã—ãŸã‚‚ã®ã‚’çµæœç”¨å¤‰æ•°ã®ãƒ¡ãƒ³ãƒã¸
 			Result.Element[i][j] = MA.Element[i][j] - MB.Element[i][j];
 		}
 	}
 
-	//•Ô‹p
+	//è¿”å´
 	return (Result);
 }
-//æZ
+//ä¹—ç®—
 TS_Matrix Matrix_Mul(TS_Matrix MA,TS_Matrix MB)
 {
-	//ŒvZŒ‹‰Ê‚ğŠi”[
+	//è¨ˆç®—çµæœã‚’æ ¼ç´
 	TS_Matrix Result = { 0 , 0 , NULL };
 
-	//¶‘¤‚Ì—ñ”‚Æ‰E‘¤‚Ìs”‚ªˆê’v‚µ‚Ä‚¢‚È‚¯‚ê‚ÎŒvZ•s‰Â‚È‚Ì‚Åƒkƒ‹‚ğ•Ô‚·
+	//å·¦å´ã®åˆ—æ•°ã¨å³å´ã®è¡Œæ•°ãŒä¸€è‡´ã—ã¦ã„ãªã‘ã‚Œã°è¨ˆç®—ä¸å¯ãªã®ã§ãƒŒãƒ«ã‚’è¿”ã™
 	if( MA.Column != MB.Row )
 	{
 		return (Result);
 	}
 	else
-	{	//ˆê’v‚µ‚Ä‚¢‚ê‚Î
-		//Œ‹‰ÊŠi”[—p\‘¢‘Ì‚ğ‰Šú‰»
+	{	//ä¸€è‡´ã—ã¦ã„ã‚Œã°
+		//çµæœæ ¼ç´ç”¨æ§‹é€ ä½“ã‚’åˆæœŸåŒ–
 		Matrix_Initialize( &Result , MA.Row , MB.Column );
 	}
 
-	//ƒ‹[ƒv—p
+	//ãƒ«ãƒ¼ãƒ—ç”¨
 	int i,j,k;
 
-	//‰‰Z
+	//æ¼”ç®—
 	for( i = 0 ; i < Result.Row ; i++ )
-	{	//s•ûŒü‚Ìƒ‹[ƒv
+	{	//è¡Œæ–¹å‘ã®ãƒ«ãƒ¼ãƒ—
 		for( j = 0 ; j < Result.Column ; j++ )
-		{	//—ñ•ûŒü‚Ìƒ‹[ƒv
-			//s—ñæZ‚µ‚½‚à‚Ì‚ğŒ‹‰Ê—p•Ï”‚Ìƒƒ“ƒo‚Ö
+		{	//åˆ—æ–¹å‘ã®ãƒ«ãƒ¼ãƒ—
+			//è¡Œåˆ—ä¹—ç®—ã—ãŸã‚‚ã®ã‚’çµæœç”¨å¤‰æ•°ã®ãƒ¡ãƒ³ãƒã¸
 			for( k = 0 ; k < MB.Row ; k++ )
 			{
 				Result.Element[i][j] += MA.Element[i][k] * MB.Element[k][j];
@@ -289,35 +289,35 @@ TS_Matrix Matrix_Mul(TS_Matrix MA,TS_Matrix MB)
 		}
 	}
 
-	//•Ô‹p
+	//è¿”å´
 	return (Result);
 }
-//œZ
+//é™¤ç®—
 TS_Matrix Matrix_Div(TS_Matrix MA,TS_Matrix MB)
 {
-	//ŒvZŒ‹‰Ê‚ğŠi”[
+	//è¨ˆç®—çµæœã‚’æ ¼ç´
 	TS_Matrix Result = { 0 , 0 , NULL };
 
-	//¶‘¤‚Ì—ñ”‚Æ‰E‘¤‚Ìs”‚ªˆê’v‚µ‚Ä‚¢‚È‚¯‚ê‚ÎŒvZ•s‰Â‚È‚Ì‚Åƒkƒ‹‚ğ•Ô‚·
+	//å·¦å´ã®åˆ—æ•°ã¨å³å´ã®è¡Œæ•°ãŒä¸€è‡´ã—ã¦ã„ãªã‘ã‚Œã°è¨ˆç®—ä¸å¯ãªã®ã§ãƒŒãƒ«ã‚’è¿”ã™
 	if( MA.Column != MB.Row )
 	{
 		return (Result);
 	}
 	else
-	{	//ˆê’v‚µ‚Ä‚¢‚ê‚Î
-		//Œ‹‰ÊŠi”[—p\‘¢‘Ì‚ğ‰Šú‰»
+	{	//ä¸€è‡´ã—ã¦ã„ã‚Œã°
+		//çµæœæ ¼ç´ç”¨æ§‹é€ ä½“ã‚’åˆæœŸåŒ–
 		Matrix_Initialize( &Result , MA.Row , MB.Column );
 	}
 
-	//ƒ‹[ƒv—p
+	//ãƒ«ãƒ¼ãƒ—ç”¨
 	int i,j,k;
 
-	//‰‰Z
+	//æ¼”ç®—
 	for( i = 0 ; i < Result.Row ; i++ )
-	{	//s•ûŒü‚Ìƒ‹[ƒv
+	{	//è¡Œæ–¹å‘ã®ãƒ«ãƒ¼ãƒ—
 		for( j = 0 ; j < Result.Column ; j++ )
-		{	//—ñ•ûŒü‚Ìƒ‹[ƒv
-			//s—ñæZ‚µ‚½‚à‚Ì‚ğŒ‹‰Ê—p•Ï”‚Ìƒƒ“ƒo‚Ö
+		{	//åˆ—æ–¹å‘ã®ãƒ«ãƒ¼ãƒ—
+			//è¡Œåˆ—ä¹—ç®—ã—ãŸã‚‚ã®ã‚’çµæœç”¨å¤‰æ•°ã®ãƒ¡ãƒ³ãƒã¸
 			for( k = 0 ; k < MB.Row ; k++ )
 			{
 				Result.Element[i][j] += MA.Element[i][k] / MB.Element[k][j];
@@ -325,19 +325,77 @@ TS_Matrix Matrix_Div(TS_Matrix MA,TS_Matrix MB)
 		}
 	}
 
-	//•Ô‹p
+	//è¿”å´
 	return (Result);
 }
+//LUåˆ†è§£ã‚’è¡Œã†
+void Matrix_LUDecomposition(TS_Matrix MA,TS_Matrix* ML,TS_Matrix* MU)
+{
+	//ãƒ«ãƒ¼ãƒ—ç”¨
+	int i,j,k;
 
-//I—¹
+	//çµæœä¸€æ™‚åç´å ´æ‰€
+	double tmp = 0.0;
+
+	//åˆ†è§£ã®æ¼”ç®—ã‚’è¡Œã†
+	for( i = 0 ; i < MA.Row ; i++ )
+	{	//åˆ†è§£ã•ã‚Œã‚‹è¡Œåˆ—ã®è¡Œæ•°åˆ†ãƒ«ãƒ¼ãƒ—ã™ã‚‹
+
+		//Lã®(i,i)æˆåˆ†ã‚’æ›´æ–°
+		ML->Element[i][i] = 1.0;
+
+		//Uã®(i,i)æˆåˆ†ã‚’æ›´æ–°
+		tmp = 0.0;
+		//æ¼¸åŒ–å¼ã®éƒ¨åˆ†ã‚’è¨ˆç®—
+		for( k = 0 ; k < i ; k++ )
+		{
+			tmp += ML->Element[i][k] * MU->Element[k][i];
+		}
+		//ä»£å…¥
+		MU->Element[i][i] = MA.Element[i][i] - tmp;
+
+		for( j = i+1 ; j < MA.Column ; j++ )
+		{	//åˆ†è§£ã•ã‚Œã‚‹è¡Œåˆ—ã®åˆ—æ•°åˆ†ãƒ«ãƒ¼ãƒ—ã™ã‚‹
+			//Lã®(j,i)æˆåˆ†ã‚’æ›´æ–°
+			//æ¼¸åŒ–å¼ã®éƒ¨åˆ†ã‚’è¨ˆç®—
+			tmp = 0.0;
+			for( k = 0 ; k < i ; k++ )
+			{
+				tmp += ML->Element[j][k] * MU->Element[k][i];
+			}
+			//ä»£å…¥
+			ML->Element[j][i] = (MA.Element[j][i] - tmp) / MU->Element[i][i];
+
+			//Uã®(j,i)æˆåˆ†ã‚’æ›´æ–°
+			MU->Element[j][i] = 0.0;
+
+			//Lã®(i,j)æˆåˆ†ã‚’æ›´æ–°
+			ML->Element[i][j] = 0.0;
+
+			//Uã®(i,j)æˆåˆ†ã‚’æ›´æ–°
+			//æ¼¸åŒ–å¼ã®éƒ¨åˆ†ã‚’è¨ˆç®—
+			tmp = 0.0;
+			for( k = 0 ; k < i ; k++ )
+			{
+				tmp += ML->Element[i][k] * MU->Element[k][j];
+			}
+			//ä»£å…¥
+			MU->Element[i][j] = MA.Element[i][j] - tmp;
+		}
+	}
+}
+
+
+
+//çµ‚äº†
 void Matrix_Finalize(TS_Matrix* Matrix)
 {
-	int i;	//ƒ‹[ƒv—p
-	//—v‘f‚Ì—ñ‚Ì•”•ª‚ğ‰ğ•ú
+	int i;	//ãƒ«ãƒ¼ãƒ—ç”¨
+	//è¦ç´ ã®åˆ—ã®éƒ¨åˆ†ã‚’è§£æ”¾
 	for( i = 0 ; i < Matrix->Row ; i++ )
 	{
 		free(Matrix->Element[i]);
 	}
-	//—v‘f‚Ì‘S‘Ì‚ğŠJ•ú
+	//è¦ç´ ã®å…¨ä½“ã‚’é–‹æ”¾
 	free(Matrix->Element);
 }
