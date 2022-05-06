@@ -1,66 +1,67 @@
 /*
-	s—ñƒf[ƒ^‚ğ•Û
+	è¡Œåˆ—ãƒ‡ãƒ¼ã‚¿ã‚’ä¿æŒ
 */
 #ifndef MATRIX_H
 #define MATRIX_H
 
 
-//s—ñ‚Ì\‘¢‘Ì‚ÌŒ^
+//è¡Œåˆ—ã®æ§‹é€ ä½“ã®å‹
 typedef struct S_Matrix
 {
-	int		Row;	//s”
-	int		Column;	//—ñ”
-	double	**Element;	//—v‘f(¬•ª)‚ğ•Û
+	int		Row;	//è¡Œæ•°
+	int		Column;	//åˆ—æ•°
+	double	**Element;	//è¦ç´ (æˆåˆ†)ã‚’ä¿æŒ
 } TS_Matrix;
 
-
-//‰Šú‰»
+//åˆæœŸåŒ–
 void Matrix_Initialize(TS_Matrix* Matrix,int StartRow,int StartColumn);
 
-//•`‰æ
-//s”
+//æç”»
+//è¡Œæ•°
 void Matrix_Draw_Row(TS_Matrix* Matrix);
-//—ñ”
+//åˆ—æ•°
 void Matrix_Draw_Column(TS_Matrix* Matrix);
-//(i,j)¬•ª
+//(i,j)æˆåˆ†
 void Matrix_Draw_Element(TS_Matrix* Matrix,int i,int j);
-//—v‘f‘S•”
+//è¦ç´ å…¨éƒ¨
 void Matrix_Draw_Element_All(TS_Matrix* Matrix);
 
-//æ“¾—p
-//s”
+//å–å¾—ç”¨
+//è¡Œæ•°
 int Matrix_Get_Row(TS_Matrix* Matrix);
-//—ñ”
+//åˆ—æ•°
 int Matrix_Get_Column(TS_Matrix* Matrix);
-//(i,j)¬•ª
+//(i,j)æˆåˆ†
 double Matrix_Get_Element(TS_Matrix* Matrix,int i,int j);
 
-//İ’è—p
-//s”
+//è¨­å®šç”¨
+//è¡Œæ•°
 int Matrix_Set_Row(TS_Matrix* Matrix,int NewRow);
-//—ñ”
+//åˆ—æ•°
 int Matrix_Set_Column(TS_Matrix* Matrix,int NewColumn);
-//(i,j)¬•ª
+//(i,j)æˆåˆ†
 double Matrix_Set_Element(TS_Matrix* Matrix,int i,int j,double NewElement);
 
-//XV
+//æ›´æ–°
 int Matrix_Update(TS_Matrix* Matrix);
-//s”‚ğXV
+//è¡Œæ•°ã‚’æ›´æ–°
 int Matrix_Update_Row(TS_Matrix* Matrix,int NewRow);
-//—ñ”‚ğXV
+//åˆ—æ•°ã‚’æ›´æ–°
 int Matrix_Update_Column(TS_Matrix* Matrix,int NewColumn);
 
-//‰‰Z
-//‰ÁZ
+//æ¼”ç®—ã¨ã‹
+//åŠ ç®—
 TS_Matrix Matrix_Sum(TS_Matrix MA,TS_Matrix MB);
-//Œ¸Z
+//æ¸›ç®—
 TS_Matrix Matrix_Sub(TS_Matrix MA,TS_Matrix MB);
-//æZ
+//ä¹—ç®—
 TS_Matrix Matrix_Mul(TS_Matrix MA,TS_Matrix MB);
-//œZ
+//é™¤ç®—
 TS_Matrix Matrix_Div(TS_Matrix MA,TS_Matrix MB);
+//LUåˆ†è§£ã‚’è¡Œã†
+void Matrix_LUDecomposition(TS_Matrix MA,TS_Matrix* ML,TS_Matrix* MU);
 
-//I—¹
+//çµ‚äº†
 void Matrix_Finalize(TS_Matrix* Matrix);
 
 #endif
